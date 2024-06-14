@@ -13,22 +13,11 @@ class Range:
         return self
 
     def __next__(self):
-        if self.start > self.stop and self.step > 0:
+        if (self.step > 0 and self.start + self.step >= self.stop) or (self.step < 0 and self.start + self.step <= self.stop):
             raise StopIteration
 
-        elif self.start > self.stop and self.step < 0: # (-5, -27, -2)
-            self.start += self.step
-            if self.stop >= self.start:
-                raise StopIteration
-            return self.start
+        self.start += self.step
+        return self.start
 
-        elif self.start < self.stop and self.step > 0: # (1, 78, 3)
-            self.start += self.step
-            if self.start >= self.stop:
-                raise StopIteration
-            return self.start
-
-
-
-for i in Range(-5,-28,-5):
+for i in Range(10, -31, -10):
     print(i)
